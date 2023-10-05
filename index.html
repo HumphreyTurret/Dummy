@@ -1,10 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
-    <title>Document Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="https://vjs.zencdn.net/8.5.2/video-js.css" rel="stylesheet" />
+    <script type="text/javascript">
+    <!--
+      window.HELP_IMPROVE_VIDEOJS = false
+    //-->
+    </script>
+    <script type="text/javascript" charset="utf-8" src="https://vjs.zencdn.net/8.5.2/video.min.js"></script>
+    <script type="text/javascript">
+    <!--
+      clips = [
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
+      ]
+
+      pics = [
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/images/ElephantsDream.jpg",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerEscapes.jpg",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerFun.jpg",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerJoyrides.jpg",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerMeltdowns.jpg",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/images/Sintel.jpg",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/images/SubaruOutbackOnStreetAndDirt.jpg",
+        "https://storage.googleapis.com/gtv-videos-bucket/sample/images/TearsOfSteel.jpg"
+      ]
+
+      function playVideo() {
+        player.src({src:clips[srcidx], type:'video/mp4'})
+        player.poster(pics[srcidx])
+        player.play()
+        elem_vtxt.innerText = clips[srcidx].split(/[\\/]/).pop()
+      }
+
+      function preV(event) {
+        srcidx = 0 == srcidx ? srccnt - 1 : srcidx - 1
+        playVideo()
+      }
+
+      function nxtV(event) {
+        srcidx = srccnt - 1 == srcidx ? 0 : srcidx + 1
+        playVideo()
+      }
+
+      function initVars() {
+        player = videojs.players['my-video']
+        srccnt = clips.length
+        srcidx = 0
+        elem_vtxt = document.getElementById('vtxt')
+        elem_vtxt.innerText = clips[srcidx].split(/[\\/]/).pop()
+        document.getElementById('prevbtn').addEventListener('click', preV)
+        document.getElementById('nextbtn').addEventListener('click', nxtV)
+      }
+    //-->
+    </script>
   </head>
-  <body>
-    <p>This is my first GitHub Pages</p>
+  <body onLoad="initVars()">
+    <video id="my-video" class="video-js" controls preload="auto" width="960" height="540" poster="https://storage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg" data-setup="{}">
+      <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+      <!-- <source src="MY_VIDEO.webm" type="video/webm" /> -->
+      <p class="vjs-no-js"> To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+      </p>
+    </video>
+    <p>
+      <button type="button" id="prevbtn">PREV</button>
+      <button type="button" id="nextbtn">NEXT</button>
+      <span id="vtxt"></span>
+    </p>
   </body>
 </html>
